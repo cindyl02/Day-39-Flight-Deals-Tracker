@@ -8,8 +8,8 @@ BEARER_HEADERS = {
     "Authorization": TOKEN
 }
 
+
 class DataManager:
-    # This class is responsible for talking to the Google Sheet.
     def __init__(self):
         self.destination_data = {}
 
@@ -30,7 +30,7 @@ class DataManager:
             response.raise_for_status()
             pprint(response.text)
 
-    def update_row(self, id, **kwargs):
+    def update_row(self, row_id, **kwargs):
         new_data = {
             "sheet1": {
                 "lowestPrice": kwargs["price"],
@@ -40,6 +40,6 @@ class DataManager:
                 "viaCity": kwargs["via_city"]
             }
         }
-        response = requests.put(url=f"{SHEETY_ENDPOINT}/{id}", json=new_data, headers=BEARER_HEADERS)
+        response = requests.put(url=f"{SHEETY_ENDPOINT}/{row_id}", json=new_data, headers=BEARER_HEADERS)
         response.raise_for_status()
         pprint(response.text)
